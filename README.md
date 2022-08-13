@@ -2,7 +2,7 @@
 Foi desenvolvida a funcionalidade de envio de email com smtp utilizando o padrão estrutural Facade.
 Utilizei a estrutura do framework lumen do php para facilitar a contrução das rotas de API, com um endpoint para teste do envio de email.
 
-Acessar pacote da Facade: [App/Services/Facades/Mail](https://github.com/williamtrindade/college-project-php-facade/tree/master/app/Services/Facades/Mail).
+Acessar pacote da Facade: [App/Services/Facades/Mail](https://github.com/williamtrindade/college-project-facade-design-pattern/tree/main/app/Services/Facades/Mail).
 
 #### Diagrama de classes
 <img height="40%" src="classDiagram.png" alt="DC">
