@@ -10,7 +10,7 @@ Acessar pacote da Facade: [App/Services/Facades/Mail](https://github.com/william
 #### Diagrama de classes do padrao
 <img height="40%" src="https://refactoring.guru/images/patterns/diagrams/facade/structure.png" alt="DC">
 
-___
+
 ___
 ### Teste
 #### Utilização da facade
