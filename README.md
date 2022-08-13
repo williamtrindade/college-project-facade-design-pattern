@@ -1,24 +1,79 @@
-# Lumen PHP Framework
+### Resolução:
+Foi desenvolvida a funcionalidade de envio de email com smtp utilizando o padrão estrutural Facade.
+Utilizei a estrutura do framework lumen do php para facilitar a contrução das rotas de API, com um endpoint para teste do envio de email.
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
+Acessar pacote da Facade: [App/Services/Facades/Mail](https://github.com/williamtrindade/college-project-php-facade/tree/master/app/Services/Facades/Mail).
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+#### Diagrama de classes
+<img height="40%" src="classDiagram.png" alt="DC">
 
-## Official Documentation
+#### Diagrama de classes do padrao
+<img height="40%" src="https://refactoring.guru/images/patterns/diagrams/facade/structure.png" alt="DC">
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+___
+___
+### Teste
+#### Utilização da facade
+```php
+<?php
 
-## Contributing
+namespace App\Http\Controllers;
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+use App\Services\Facades\Mail\MailFacade;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-## Security Vulnerabilities
+/**
+ * Class UserController
+ * @package App\Http\Controllers
+ */
+class UserController extends Controller
+{
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function mail(Request $request)
+    {
+        $mail = new MailFacade();
+        $mail->to('Wil', $request->to)
+            ->from('William', $request->from)
+            ->subject($request->subject)
+            ->message($request->message)
+            ->cc('tests@ggg.net')
+            ->bcc('willafdsfssiam@fsdd.net')
+            ->send();
+        return response()->json($mail->getStatus());
+    }
+}
+```
+#### Configurar SMTP no .env
+> **MAIL_MAILER=smtp  
+  MAIL_HOST=smtp.mailtrap.io  
+  MAIL_PORT=2525  
+  MAIL_USERNAME={{username}}  
+  MAIL_PASSWORD={{pass}}  
+  MAIL_ENCRYPTION=tls**
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+#### Baixar dependências
+> **composer install**
 
-## License
+#### Rodar aplicação
+> **php -S localhost:8000 -t public**
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Fazer um POST no endpoint
+> **{{HOST}}/mail**  
+```json
+{
+    "from": "test@test.com",
+    "to": "me@test.com",
+    "subject": "a simple message",
+    "message": "Hello!"
+}
+```
+____
+Referência:
+https://refactoring.guru/design-patterns/facade
+
