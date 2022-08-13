@@ -2,9 +2,10 @@
 
 namespace App\Services\Facades\Mail;
 
+use App\Services\Facades\Mail\Contracts\MailInterface;
 use Exception;
 
-class MailFacade
+class MailFacade implements MailInterface
 {
     /** @var Mail $mail */
     protected $mail;
